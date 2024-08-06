@@ -205,69 +205,134 @@
             cargarSelect(tiradas);
         }
         //
+        function cargarAtributos(atr, lista, span) {
+            lista.forEach(e => {
+                atr.appendChild(e);
+            });
+            //
+            span.appendChild(atr);
+        }
+        //
         document.getElementById("razas").addEventListener("change", () => {
             let raza = document.getElementById("razas").value;
+            //
+            let span = document.getElementById("bonos");
+            span.innerHTML = "";
+            let atr = document.createElement("ul");
+            let listaAtr = [];
+            listaAtr.innerHTML = "";
+            //
+            let car = document.createElement("li");
+            let vel = document.createElement("li");
+            let tam = document.createElement("li");
+            let idi = document.createElement("li");
+            let vis = document.createElement("li");
+            let res = document.createElement("li");
+            let ent = document.createElement("li");
+            let com = document.createElement("li");
+            let ext = document.createElement("li");
+            let sub = document.createElement("li");
+            //
             switch (raza) {
                 case "humano":
-                    document.getElementById("bonos").innerText = "+1 a todas las características."
+                    car.innerText = "+1 a todas las características."
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y un idioma a elección.";
+                    vis.innerText = "No posee visión en la oscuridad.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis);
                     break;
                 case "enano":
-                    document.getElementById("bonos").innerText = "+2 a constitución."
+                    car.innerText = "+2 en constitución."
+                    vel.innerText = "Velocidad: 25 pies, no se reduce por llevar armadura pesada.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Enano.";
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Ventaja en tiradas de salvación contra veneno y resistencia al daño de veneno.";
+                    ent.innerText = "Competentes con hachas de guerra, hachas de mano, martillos de guerra y martillos ligeros.";
+                    com.innerText = "Competentes con herramientas de albañil, herrero o suministros de cervecero.";
+                    ext.innerText = "Doblan el bonificador de inteligencia en tiradas de historia cuando se trate de trabajo en piedra.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext);
                     break;
                 case "enanoColina":
-                    document.getElementById("bonos").innerText = "+2 a constitución +1 a sabiduría."
+                    car.innerText = "+2 en constitución y +1 en sabiduria."
+                    vel.innerText = "Velocidad: 25 pies, no se reduce por llevar armadura pesada.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Enano.";
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Ventaja en tiradas de salvación contra veneno y resistencia al daño de veneno.";
+                    ent.innerText = "Competentes con hachas de guerra, hachas de mano, martillos de guerra y martillos ligeros.";
+                    com.innerText = "Competentes con herramientas de albañil, herrero o suministros de cervecero.";
+                    ext.innerText = "Doblan el bonificador de inteligencia en tiradas de historia cuando se trate de trabajo en piedra.";
+                    sub.innerText = "Puntos de golpe +1 y +1 más cada vez que suba de nivel.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "enanoMontana":
-                    document.getElementById("bonos").innerText = "+2 a constitución +2 a fuerza."
+                    car.innerText = "+2 en constitución y +2 en fuerza."
+                    vel.innerText = "Velocidad: 25 pies, no se reduce por llevar armadura pesada.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Enano.";
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Ventaja en tiradas de salvación contra veneno y resistencia al daño de veneno.";
+                    ent.innerText = "Competentes con hachas de guerra, hachas de mano, martillos de guerra y martillos ligeros.";
+                    com.innerText = "Competentes con herramientas de albañil, herrero o suministros de cervecero.";
+                    ext.innerText = "Doblan el bonificador de inteligencia en tiradas de historia cuando se trate de trabajo en piedra.";
+                    sub.innerText = "Competente con armaduras ligeras y medias.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "elfo":
-                    document.getElementById("bonos").innerText = "+2 a destreza."
+
                     break;
                 case "altoElfo":
-                    document.getElementById("bonos").innerText = "+2 a destreza +1 inteligencia."
+
                     break;
                 case "elfoBosques":
-                    document.getElementById("bonos").innerText = "+2 a destreza +1 a sabiduría."
+
                     break;
                 case "elfoOscuro":
-                    document.getElementById("bonos").innerText = "+2 a destreza +1 a carisma."
+
                     break;
                 case "mediano":
-                    document.getElementById("bonos").innerText = "+2 a destreza."
+
                     break;
                 case "medianoPiesligeros":
-                    document.getElementById("bonos").innerText = "+2 a destreza +1 a carisma."
+
                     break;
                 case "medianoFornido":
-                    document.getElementById("bonos").innerText = "+2 a destreza +1 a constitución."
+
                     break;
                 case "draconido":
-                    document.getElementById("bonos").innerText = "+2 a fuerza +1 carisma."
+
                     break;
                 case "gnomo":
-                    document.getElementById("bonos").innerText = "+2 a inteligencia."
+
                     break;
                 case "gnomoBosques":
-                    document.getElementById("bonos").innerText = "+2 a inteligencia +1 destreza."
+
                     break;
                 case "gnomoRocas":
-                    document.getElementById("bonos").innerText = "+2 a inteligencia +1 constitución."
+
                     break;
                 case "semielfo":
-                    document.getElementById("bonos").innerText = "+2 a carisma +1 a dos características a elección."
+
                     break;
                 case "semiorco":
-                    document.getElementById("bonos").innerText = "+2 a fuerza +1 a constitución."
+
                     break;
                 case "tiefling":
-                    document.getElementById("bonos").innerText = "+2 a carisma +1 inteligencia."
+
                     break;
             }
+            cargarAtributos(atr, listaAtr, span);
         });
         //
         function cargarSelect(tiradas) {
             const listas = document.getElementsByClassName("caract");
-
+            //
             for (let i = 0; i < listas.length; i++) {
                 for (let j = 0; j < tiradas.length; j++) {
                     let opt = document.createElement("option");
