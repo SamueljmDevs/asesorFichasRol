@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiradas PJ</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /*No, esto no se toca, harás que se vea feo!*/
+        body {
+            background-color: lightgray;
+        }
+
+        .primarias {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+        }
+
+        button {
+            margin-left: .5rem;
+        }
+
+        #repeApa {
+            display: none;
+        }
+
+        .apariencia {
+            display: flex;
+        }
+
+        #repetir {
+            margin-top: 0.5rem;
+        }
+
+        .tirada {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            border: 1px solid black;
+            margin: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tiradas">
+        <h1>Generador de tiradas</h1>
+        <h4>Se sigue el sistema de generación de tiradas IV</h4>
+        <hr>
+        <div class="botonera">
+            <button id="iniciar" type="button" onclick="lanzar()">Lanzar dados</button>
+        </div>
+        <div class="primarias">
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+            <div class="tirada">
+                <img class="dado" src="" alt="">
+            </div>
+
+        </div>
+        <hr>
+        <div class="apariencia">
+            <div>Apariencia: </div>
+            <div class="tirada">
+                <img id="dadoApa" src="dados/" alt="">
+            </div>
+            <div id="repeApa">
+                <button type="button" id="repetir" onclick="repetir()">Repetir</button>
+                <p id="explicacion">Al pulsar 'Repetir' se vuelve a tirar el dado, pero el resultado que sale es
+                    definitivo.</p>
+            </div>
+
+        </div>
+        <hr>
+        <div class="clasesocial">
+            <p>Clase social:</p>
+            <p id="tiradaSocial"></p>
+        </div>
+        <hr>
+    </div>
+    <script>
+        //Si tocas lo que hay aquí no funcionará!!!
+        function lanzar() {
+            var apa = document.getElementById("dadoApa");
+            var social = document.getElementById("tiradaSocial");
+            var dados = document.getElementsByClassName("dado");
+
+            var num = 0;
+            var tiradasAux = [];
+            for (let i = 0; i < 8; i++) {
+                num = Math.floor(Math.random() * 10) + 1;
+                if (num > 3) {
+                    tiradasAux.push(num);
+                } else {
+                    i--;
+                }
+            }
+            tiradasAux.sort();
+            tiradasAux[0] = 9;
+
+
+            for (let i = 0; i < tiradasAux.length; i++) {
+                dados[i].setAttribute("src", "dados/D10-" + tiradasAux[i] + ".png");
+
+            }
+
+
+            var apaVal = Math.floor(Math.random() * 10) + 1;
+            apa.setAttribute("src", "dados/D10-" + apaVal + ".png");
+
+            var claseVal = Math.floor(Math.random() * 10) + 1;
+            console.log(claseVal);
+
+            let socialClass;
+            switch (apaVal) {
+                case 1:
+                    socialClass = "Pobre - 5 MC (Monedas de Cobre)";
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    socialClass = "Media - 1 MO (Moneda de Oro)";
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    socialClass = "Alta - 20 MO (Monedas de Oro)";
+                    break;
+                case 10:
+                    socialClass = "Baja nobleza - 150 MO (Monedas de Oro)";
+                    break;
+                default:
+                    socialClass = "Error: Invalid roll value"; // Handle unexpected outcome
+            }
+            social.innerHTML = socialClass;
+            document.getElementById("repeApa").style.display = "block";
+            document.getElementById("iniciar").style.display = "none";
+        }
+        function repetir() {
+            var apariencia = document.getElementById("dadoApa");
+            var nuevaApa = Math.floor(Math.random() * 10) + 1;
+            apariencia.setAttribute("src", "dados/D10-" + nuevaApa + ".png");
+            document.getElementById("repetir").style.display = "none";
+            document.getElementById("explicacion").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Ficha DnD 5e</title>
+    <style>
+        body {
+            background-color: lightgrey;
+        }
+
+        .primarias {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+        }
+
+        .tirada {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            border: 1px solid black;
+            margin: .5rem;
+        }
+
+        button {
+            margin-left: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Asistente de Ficha</h1>
+    <h3>Versión Player's Handbook (Manual del Jugador)</h3>
+    <hr>
+    <h4>Razas</h4>
+    <select name="razas" id="razas">
+        <option value="humano" selected>Humano</option>
+        <option value="enano">Enano</option>
+        <option value="enanoColina">Enano de las Colinas</option>
+        <option value="enanoMontana">Enano de las Montañas</option>
+        <option value="elfo">Elfo</option>
+        <option value="altoElfo">Alto Elfo</option>
+        <option value="elfoBosques">Elfo de los Bosques</option>
+        <option value="elfoOscuro">Elfo Oscuro (Drow)</option>
+        <option value="mediano">Mediano</option>
+        <option value="medianoPiesligeros">Mediano Piesligeros</option>
+        <option value="medianoGornido">Mediano Fornido</option>
+        <option value="draconido">Dracónido</option>
+        <option value="gnomo">Gnomo</option>
+        <option value="gnomoBosques">Gnomo de los Bosques</option>
+        <option value="gnomoRocas">Gnomo de las Rocas</option>
+        <option value="semielfo">Semielfo</option>
+        <option value="semiorco">Semiorco</option>
+        <option value="tiefling">Tiefling</option>
+    </select>
+    <span id="bonos"></span>
+    <hr>
+    <h4>Tiradas</h4>
+    <button onclick="tiradas()" id="tirar">Tirar dados</button>
+    <!---->
+    <div class="primarias">
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+        <div class="tirada">
+            <img class="dado" src="" alt="">
+        </div>
+    </div>
+    <hr>
+    <h4>Características y Bonos</h4>
+    <table>
+        <tr>
+            <th>FUE</th>
+            <th>DES</th>
+            <th>CON</th>
+            <th>INT</th>
+            <th>SAB</th>
+            <th>CAR</th>
+        </tr>
+        <tr>
+            <th>
+                <select class="caract" name="selectFue" id="selectFue"></select>
+            </th>
+            <th>
+                <select class="caract" name="selectDes" id="selectDes"></select>
+            </th>
+            <th>
+                <select class="caract" name="selectCon" id="selectCon"></select>
+            </th>
+            <th>
+                <select class="caract" name="selectInt" id="selectInt"></select>
+            </th>
+            <th>
+                <select class="caract" name="selectSab" id="selectSab"></select>
+            </th>
+            <th>
+                <select class="caract" name="selectCar" id="selectCar"></select>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div class="tirada">
+                    <img id="dadoFue" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="dadoDes" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="dadoCon" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="dadoInt" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="dadoSab" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="dadoCar" src="" alt="">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><button onclick="asignar()">Asignar</button></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="tirada">
+                    <img id="bonoFue" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="bonoDes" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="bonoCon" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="bonoInt" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="bonoSab" src="" alt="">
+                </div>
+            </td>
+            <td>
+                <div class="tirada">
+                    <img id="bonoCar" src="" alt="">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!---->
+    <script>
+        function tiradas() {
+            const dados = document.getElementsByClassName("dado");
+            var tiradas = [];
+            //
+            for (let j = 0; j < 6; j++) {
+                var aux = [];
+                for (let i = 0; i < 6; i++) {
+                    let num = Math.floor(Math.random() * 6) + 1;
+                    aux.push(num);
+                }
+                //
+                aux.sort((a, b) => b - a);
+                //
+                tiradas.push(aux[0] + aux[1] + aux[2]);
+            }
+            //console.log(tiradas);
+            for (let i = 0; i < tiradas.length; i++) {
+                dados[i].setAttribute("src", "Dados/D20-" + tiradas[i] + ".png");
+            }
+            document.getElementById("tirar").style.display = "none";
+            cargarSelect(tiradas);
+        }
+        //
+        document.getElementById("razas").addEventListener("change", () => {
+            let raza = document.getElementById("razas").value;
+            switch (raza) {
+                case "humano":
+                    document.getElementById("bonos").innerText = "+1 a todas las características."
+                    break;
+                case "enano":
+                    document.getElementById("bonos").innerText = "+2 a constitución."
+                    break;
+                case "enanoColina":
+                    document.getElementById("bonos").innerText = "+2 a constitución +1 a sabiduría."
+                    break;
+                case "enanoMontana":
+                    document.getElementById("bonos").innerText = "+2 a constitución +2 a fuerza."
+                    break;
+                case "elfo":
+                    document.getElementById("bonos").innerText = "+2 a destreza."
+                    break;
+                case "altoElfo":
+                    document.getElementById("bonos").innerText = "+2 a destreza +1 inteligencia."
+                    break;
+                case "elfoBosques":
+                    document.getElementById("bonos").innerText = "+2 a destreza +1 a sabiduría."
+                    break;
+                case "elfoOscuro":
+                    document.getElementById("bonos").innerText = "+2 a destreza +1 a carisma."
+                    break;
+                case "mediano":
+                    document.getElementById("bonos").innerText = "+2 a destreza."
+                    break;
+                case "medianoPiesligeros":
+                    document.getElementById("bonos").innerText = "+2 a destreza +1 a carisma."
+                    break;
+                case "medianoFornido":
+                    document.getElementById("bonos").innerText = "+2 a destreza +1 a constitución."
+                    break;
+                case "draconido":
+                    document.getElementById("bonos").innerText = "+2 a fuerza +1 carisma."
+                    break;
+                case "gnomo":
+                    document.getElementById("bonos").innerText = "+2 a inteligencia."
+                    break;
+                case "gnomoBosques":
+                    document.getElementById("bonos").innerText = "+2 a inteligencia +1 destreza."
+                    break;
+                case "gnomoRocas":
+                    document.getElementById("bonos").innerText = "+2 a inteligencia +1 constitución."
+                    break;
+                case "semielfo":
+                    document.getElementById("bonos").innerText = "+2 a carisma +1 a dos características a elección."
+                    break;
+                case "semiorco":
+                    document.getElementById("bonos").innerText = "+2 a fuerza +1 a constitución."
+                    break;
+                case "tiefling":
+                    document.getElementById("bonos").innerText = "+2 a carisma +1 inteligencia."
+                    break;
+            }
+        });
+        //
+        function cargarSelect(tiradas) {
+            const listas = document.getElementsByClassName("caract");
+
+            for (let i = 0; i < listas.length; i++) {
+                for (let j = 0; j < tiradas.length; j++) {
+                    let opt = document.createElement("option");
+                    opt.value = tiradas[j];
+                    opt.text = tiradas[j]; // Agrega el texto visible a la opción
+                    listas[i].appendChild(opt);
+                }
+            }
+        }
+        //
+        function asignarBono(cara) {
+            let bono = "";
+            switch (cara) {
+                case 1:
+                    bono = "-5";
+                    break;
+                case 2:
+                case 3:
+                    bono = "-4";
+                    break;
+                case 4:
+                case 5:
+                    bono = "-3";
+                    break;
+                case 6:
+                case 7:
+                    bono = "-2";
+                    break;
+                case 8:
+                case 9:
+                    bono = "-1";
+                    break;
+                case 10:
+                case 11:
+                    bono = "0";
+                    break;
+                case 12:
+                case 13:
+                    bono = "+1";
+                    break;
+                case 14:
+                case 15:
+                    bono = "+2";
+                    break;
+                case 16:
+                case 17:
+                    bono = "+3";
+                    break;
+                case 18:
+                case 19:
+                    bono = "+4";
+                    break;
+                case 20:
+                    bono = "+5";
+                    break;
+            }
+            return bono;
+        }
+        //
+        function asignar() {
+            let fuerza = 0;
+            let destreza = 0;
+            let constitucion = 0;
+            let inteligencia = 0;
+            let sabiduria = 0;
+            let carisma = 0;
+            //
+            let raza = document.getElementById("razas").value;
+            switch (raza) {
+                case "humano":
+                    fuerza += 1;
+                    destreza += 1;
+                    constitucion += 1;
+                    inteligencia += 1;
+                    sabiduria += 1;
+                    carisma += 1;
+                    break;
+                case "enano":
+                    constitucion += 2;
+                    break;
+                case "enanoColina":
+                    constitucion += 2;
+                    sabiduria += 1;
+                    break;
+                case "enanoMontana":
+                    constitucion += 2;
+                    fuerza += 2;
+                    break;
+                case "elfo":
+                    destreza += 2;
+                    break;
+                case "altoElfo":
+                    destreza += 2;
+                    inteligencia += 1;
+                    break;
+                case "elfoBosques":
+                    destreza += 2;
+                    sabiduria += 1;
+                    break;
+                case "elfoOscuro":
+                    destreza += 2;
+                    carisma += 1;
+                    break;
+                case "mediano":
+                    destreza += 2;
+                    break;
+                case "medianoPiesligeros":
+                    destreza += 2;
+                    carisma += 1;
+                    break;
+                case "medianoFornido":
+                    destreza += 2;
+                    constitucion += 1;
+                    break;
+                case "draconido":
+                    fuerza += 2;
+                    carisma += 1;
+                    break;
+                case "gnomo":
+                    inteligencia += 2;
+                    break;
+                case "gnomoBosques":
+                    inteligencia += 2;
+                    destreza += 1;
+                    break;
+                case "gnomoRocas":
+                    inteligencia += 2;
+                    constitucion += 1;
+                    break;
+                case "semielfo":
+                    carisma += 2;
+                    //"+2 a carisma +1 a dos características a elección."
+                    break;
+                case "semiorco":
+                    fuerza += 2;
+                    constitucion += 2;
+                    break;
+                case "tiefling":
+                    carisma += 2;
+                    inteligencia += 2;
+                    break;
+            }
+            //
+            fuerza += parseInt(document.getElementById("selectFue").value);
+            destreza += parseInt(document.getElementById("selectDes").value);
+            constitucion += parseInt(document.getElementById("selectCon").value);
+            inteligencia += parseInt(document.getElementById("selectInt").value);
+            sabiduria += parseInt(document.getElementById("selectSab").value);
+            carisma += parseInt(document.getElementById("selectCar").value);
+            //
+            document.getElementById("dadoFue").setAttribute("src", "Dados/D20-" + fuerza + ".png");
+            document.getElementById("dadoDes").setAttribute("src", "Dados/D20-" + destreza + ".png");
+            document.getElementById("dadoCon").setAttribute("src", "Dados/D20-" + constitucion + ".png");
+            document.getElementById("dadoInt").setAttribute("src", "Dados/D20-" + inteligencia + ".png");
+            document.getElementById("dadoSab").setAttribute("src", "Dados/D20-" + sabiduria + ".png");
+            document.getElementById("dadoCar").setAttribute("src", "Dados/D20-" + carisma + ".png");
+            //
+            var bonoFuerza = asignarBono(fuerza);
+            var bonoDestreza = asignarBono(destreza);
+            var bonoConstitucion = asignarBono(constitucion);
+            var bonoInteligencia = asignarBono(inteligencia);
+            var bonoSabiduria = asignarBono(sabiduria);
+            var bonoCarisma = asignarBono(carisma);
+            //
+            document.getElementById("bonoFue").setAttribute("src", "Bono/bono" + bonoFuerza + ".png");
+            document.getElementById("bonoDes").setAttribute("src", "Bono/bono" + bonoDestreza + ".png");
+            document.getElementById("bonoCon").setAttribute("src", "Bono/bono" + bonoConstitucion + ".png");
+            document.getElementById("bonoInt").setAttribute("src", "Bono/bono" + bonoInteligencia + ".png");
+            document.getElementById("bonoSab").setAttribute("src", "Bono/bono" + bonoSabiduria + ".png");
+            document.getElementById("bonoCar").setAttribute("src", "Bono/bono" + bonoCarisma + ".png");
+        }
+
+    </script>
+</body>
+
+</html>

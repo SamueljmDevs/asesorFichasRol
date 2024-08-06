@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciativa - Combate</title>
+    <style>
+        body {
+            background-color: lightgrey;
+            box-sizing: border-box;
+        }
+
+        .formulario {
+            width: 100%;
+        }
+
+        .objs {
+            display: flex;
+        }
+
+        .pjs {
+            width: 50%;
+            border-right: 1px solid black;
+        }
+
+        .npcs {
+            padding-left: .5rem;
+            width: 50%;
+        }
+
+        button {
+            margin-top: .5rem;
+            margin-left: 1rem;
+        }
+
+        label {
+            margin-right: 2rem;
+        }
+
+        input {
+            margin-right: .5rem;
+            text-align: center;
+        }
+
+        .orden {
+            display: flex;
+
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ayuda al combate</h1>
+    <hr>
+    <div class="formulario">
+        <h4>Tipo de ser</h4>
+        <input type="radio" name="tipo" id="jugador" checked><label for="jugador">Jugador</label>
+        <input type="radio" name="tipo" id="criatura"><label for="criatura">Criatura</label>
+        <hr>
+        <table>
+            <h4>Habilidades</h4>
+            <tr>
+                <th>
+                    <label for="name">Nombre:</label>
+                </th>
+                <td>
+                    <input type="text" name="name" id="name" value="noName">
+                </td>
+                <th>
+                    <label for="atq">Ataque:</label>
+                </th>
+                <td>
+                    <input type="number" name="atq" id="atq" value="0">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="def">Defensa:</label>
+                </th>
+                <td>
+                    <input type="number" name="def" id="def" value="0">
+                </td>
+                <th>
+                    <label for="ini">Iniciativa:</label>
+                </th>
+                <td>
+                    <input type="number" name="ini" id="ini" value="0">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="dmg">Daño Base:</label>
+                </th>
+                <td>
+                    <input type="number" name="dmg" id="dmg" value="0">
+                </td>
+                <th>
+                    <label for="pv">Puntos Vida:</label>
+                </th>
+                <td>
+                    <input type="number" name="pv" id="pv" value="0">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="ta">Tipo de Armadura:</label>
+                </th>
+                <td>
+                    <input type="number" name="ta" id="ta" value="0">
+                </td>
+                <th>
+                    <label for="acum">Acumulador de daño:</label>
+                </th>
+                <td>
+                    <input type="radio" name="acum" id="siacum" value=true><label for="siacum">Si</label>
+                    <input type="radio" name="acum" id="noacum" value=false checked><label for="noacum">No</label>
+                </td>
+            </tr>
+        </table>
+        <button name="aniadir" id="aniadir" onclick="aniadir()">Añadir</button>
+    </div>
+    <hr>
+    <div class="objs">
+        <div class="pjs">
+            <h4>Personajes:</h4>
+            <ul id="listaJugadores"></ul>
+        </div>
+        <div class="npcs">
+            <h4>Criaturas:</h4>
+            <ul id="listaNpcs"></ul>
+        </div>
+    </div>
+    <hr>
+    <div><button onclick="ordenIniciativa()">Tira Iniciativa!</button>
+        <h4>Orden:</h4>
+    </div>
+    <div class="orden">
+
+        <ol id="listaOrdenada"></ol>
+        <ul id="listaSorpresa"></ul>
+        <!--La sorpresa es diferencia de 150 puntos, sorprendido tiene -90-->
+    </div>
+    <hr>
+    <div class="combate">
+        <h4>Combate</h4>
+        <select name="atacante" id="atacante"></select>
+        <span> ataca a </span>
+        <select name="defensor" id="defensor"></select>
+        <button onclick="atacar()">Atacar!</button>
+        <p id="result"></p>
+    </div>
+    <hr>
+    <div class="critico">
+        <h4>Críticos</h4>
+        <button onclick="critico()">¿Dónde ha dado?</button>
+        <p id="crit"></p>
+    </div>
+    <hr>
+    <script>
+        const listaPJ = [];
+        const listaNPC = [];
+        //
+        function aniadir() {
+            const pjs = document.getElementById("listaJugadores");
+            const npc = document.getElementById("listaNpcs");
+            //
+            const obj = {
+                nombre: document.getElementById("name").value,
+                ataque: Math.abs(document.getElementById("atq").value),
+                defensa: Math.abs(document.getElementById("def").value),
+                iniciativa: Math.abs(document.getElementById("ini").value),
+                danio: Math.abs(document.getElementById("dmg").value),
+                puntosVida: Math.abs(document.getElementById("pv").value),
+                tipoArm: Math.abs(document.getElementById("ta").value),
+                iniAux: 0,
+                acumula: document.querySelector('input[name="acum"]:checked').value
+            };
+            console.log(obj);
+            //
+            if (document.getElementById("jugador").checked) {
+                const lin = document.createElement("li");
+                listaPJ.push(obj);
+                let cadena = obj.nombre + " - PV:" + obj.puntosVida + " - Atq:" + obj.ataque + " - Def:" + obj.defensa + " - Daño: " + obj.danio + " - TA: " + obj.tipoArm + " - Ini: " + obj.iniciativa;
+                lin.textContent = cadena;
+                pjs.appendChild(lin);
+            } else {
+                const lin = document.createElement("li");
+                listaNPC.push(obj);
+                let cadena = obj.nombre + " - PV:" + obj.puntosVida + " - Atq:" + obj.ataque + " - Def:" + obj.defensa + " - Daño: " + obj.danio + " - TA: " + obj.tipoArm + " - Ini: " + obj.iniciativa;
+                lin.textContent = cadena;
+                npc.appendChild(lin);
+            }
+            //Limpiamos los inputs
+            document.getElementById("name").value = "noName";
+            document.getElementById("atq").value = "0";
+            document.getElementById("def").value = "0";
+            document.getElementById("ini").value = "0";
+            document.getElementById("dmg").value = "0";
+            document.getElementById("pv").value = "0";
+            document.getElementById("ta").value = "0";
+        }
+        //
+        function ordenIniciativa() {
+            const orden = document.getElementById("listaOrdenada");
+            const sorpresa = document.getElementById("listaSorpresa");
+            //
+            while (orden.firstChild) {
+                orden.removeChild(orden.firstChild);
+            }
+            //
+            while (sorpresa.firstChild) {
+                sorpresa.removeChild(sorpresa.firstChild);
+            }
+            //
+            const listaGrupal = listaPJ.concat(listaNPC);
+            //console.log(listaGrupal);
+            //
+            listaGrupal.forEach(element => {
+                let minCrit = 89;
+                let subtotal = 0;
+                let tirada = 0;
+                //
+                do {
+                    tirada = Math.floor(Math.random() * 100) + 1;
+                    subtotal += tirada;
+                    if (tirada == 1) {
+                        tirada = Math.floor(Math.random() * 100) + 1;
+                        subtotal = -75;
+                        alert(element.nombre + " ha sacado una pifia sacando un 1 con valor " + tirada);
+                    } else if (tirada == 2) {
+                        tirada = Math.floor(Math.random() * 100) + 1;
+                        subtotal = -100;
+                        alert(element.nombre + " ha sacado una pifia sacando un 2 con valor " + tirada);
+                    } else if (tirada == 3) {
+                        tirada = Math.floor(Math.random() * 100) + 1;
+                        subtotal = -125;
+                        alert(element.nombre + " ha sacado una pifia sacando un 3 con valor " + tirada);
+                    }
+                    if (minCrit != 100) {
+                        minCrit++;
+                    }
+                } while (tirada >= minCrit);
+                //
+                element.iniAux = element.iniciativa + subtotal;
+            });
+
+            listaGrupal.sort((a, b) => b.iniAux - a.iniAux);
+            cargarSelect(listaGrupal);
+            listaGrupal.forEach(element => {
+                const lin = document.createElement("li");
+                lin.textContent = element.nombre + ": " + element.iniAux + " (" + element.iniciativa + "+" + (element.iniAux - element.iniciativa) + ")";
+                orden.appendChild(lin);
+            });
+
+            for (let i = 0; i < listaGrupal.length; i++) {
+                for (let j = 0; j < listaGrupal.length; j++) {
+                    if (listaGrupal[i].iniAux - listaGrupal[j].iniAux >= 150) {
+                        const sor = document.createElement("li");
+                        sor.textContent = listaGrupal[i].nombre + " ha sorprendido a " + listaGrupal[j].nombre;
+                        sorpresa.appendChild(sor);
+                    }
+
+
+                }
+
+            }
+        }
+        //
+        function cargarSelect(lista) {
+            let selAtacante = document.getElementById("atacante");
+            let selDefensor = document.getElementById("defensor");
+            //
+            selAtacante.options.length = 0;
+            selDefensor.options.length = 0;
+            //
+            lista.forEach(objeto => {
+                const optionAtacante = document.createElement("option");
+                optionAtacante.value = objeto.nombre;
+                optionAtacante.text = objeto.nombre;
+                selAtacante.appendChild(optionAtacante);
+
+                const optionDefensor = document.createElement("option");
+                optionDefensor.value = objeto.nombre;
+                optionDefensor.text = objeto.nombre;
+                selDefensor.appendChild(optionDefensor);
+            });
+        }
+        //
+        function atacar() {
+
+            while (isNaN(mod)) {
+                var mod = parseInt(prompt("Introduce el modificador si lo hay, si no lo hay pon 0"));
+            }
+
+            const txt = document.getElementById("result");
+            txt.innerText = "";
+            const listaGrupal = listaPJ.concat(listaNPC);
+            //
+            const nombreAtacante = document.getElementById("atacante").value;
+            const nombreDefensor = document.getElementById("defensor").value;
+            //
+            const objAtq = listaGrupal.find(obj => obj.nombre === nombreAtacante);
+            const objDef = listaGrupal.find(obj => obj.nombre === nombreDefensor);
+            //
+            var subtotalAtq = 0;
+            var subtotalDef = 0;
+            var minCritAtq = 89;
+            var minCritDef = 89;
+            //Tirada de ataque
+            do {
+                tiradaAtq = Math.floor(Math.random() * 100) + 1;
+                subtotalAtq += tiradaAtq;
+                if (tiradaAtq == 1) {
+                    tiradaAtq = Math.floor(Math.random() * 100) + 1;
+                    subtotalAtq = (tiradaAtq * (-1)) - 15;
+                    alert(objAtq.nombre + " ha sacado una pifia sacando un 1 con valor " + tiradaAtq);
+                } else if (tiradaAtq == 2) {
+                    tiradaAtq = Math.floor(Math.random() * 100) + 1;
+                    subtotalAtq = tiradaAtq * (-1);
+                    alert(objAtq.nombre + " ha sacado una pifia sacando un 2 con valor " + tiradaAtq);
+                } else if (tiradaAtq == 3) {
+                    tiradaAtq = Math.floor(Math.random() * 100) + 1;
+                    subtotalAtq = tiradaAtq * (-1) + 15;
+                    alert(objAtq.nombre + " ha sacado una pifia sacando un 3 con valor " + tiradaAtq);
+                }
+                if (minCritAtq != 100) {
+                    minCritAtq++;
+                }
+            } while (tiradaAtq >= minCritAtq);
+            //Tirada de defensa
+            do {
+                tiradaDef = Math.floor(Math.random() * 100) + 1;
+                subtotalDef += tiradaDef;
+                if (tiradaDef == 1) {
+                    tiradaDef = Math.floor(Math.random() * 100) + 1;
+                    subtotalDef = (tiradaDef * (-1)) - 15;
+                    alert(objDef.nombre + " ha sacado una pifia sacando un 1 con valor " + tiradaDef);
+                } else if (tiradaDef == 2) {
+                    tiradaDef = Math.floor(Math.random() * 100) + 1;
+                    subtotalDef = tiradaDef * (-1);
+                    alert(objDef.nombre + " ha sacado una pifia sacando un 2 con valor " + tiradaDef);
+                } else if (tiradaDef == 3) {
+                    tiradaDef = Math.floor(Math.random() * 100) + 1;
+                    subtotalDef = tiradaDef * (-1) + 15;
+                    alert(objDef.nombre + " ha sacado una pifia sacando un 3 con valor " + tiradaDef);
+                }
+                if (minCritDef != 100) {
+                    minCritDef++;
+                }
+            } while (tiradaDef >= minCritDef);
+            //
+            var resultado = 0;
+            if (objDef.acumula == "false") {
+                resultado = (((objAtq.ataque + subtotalAtq + mod) - (objDef.defensa + subtotalDef + (10 + objDef.tipoArm))) * objAtq.danio) / 100;
+                console.log("no acumula");
+            } else {
+                resultado = (((objAtq.ataque + subtotalAtq + mod) - subtotalDef) * objAtq.danio) / 100;
+                console.log("acumula");
+            }
+
+
+            if (resultado >= 5) {
+                txt.innerText = "El atacante realiza " + Math.floor(resultado) + " puntos de daño.";
+            } else if (resultado < 5 && resultado > -10) {
+                txt.innerText = "El atacante no impacta.";
+            } else if (resultado <= -10) {
+                txt.innerText = "El atacante falla, dándole al defensor la posibilidad de un contrataque con valor " + Math.floor(resultado);
+            }
+        }
+        function critico() {
+            const zona = Math.floor(Math.random() * 100) + 1;
+            const localizacion = document.getElementById("crit");
+            localizacion.innerText = "";
+
+            if (zona >= 1 && zona <= 10) {
+                localizacion.innerText = "Impacto en las costillas";
+            } else if (zona >= 11 && zona <= 20) {
+                localizacion.innerText = "Impacto en el hombro";
+            } else if (zona >= 22 && zona <= 30) {
+                localizacion.innerText = "Impacto en el estómago";
+            } else if (zona >= 31 && zona <= 35) {
+                localizacion.innerText = "Impacto en los riñones";
+            } else if (zona >= 36 && zona <= 48) {
+                localizacion.innerText = "Impacto en el pecho";
+            } else if (zona == 49 || zona == 50) {
+                localizacion.innerText = "Impacto en el corazón";
+            } else if (zona >= 51 && zona <= 54) {
+                localizacion.innerText = "Impacto en el antebrazo superior derecho";
+            } else if (zona >= 55 && zona <= 58) {
+                localizacion.innerText = "Impacto en el antebrazo inferior derecho";
+            } else if (zona == 59 || zona == 60) {
+                localizacion.innerText = "Impacto en la manos derecha";
+            } else if (zona >= 61 && zona <= 64) {
+                localizacion.innerText = "Impacto en el antebrazo superior izquierdo";
+            } else if (zona >= 65 && zona <= 68) {
+                localizacion.innerText = "Impacto en el antebrazo inferior izquierdo";
+            } else if (zona == 69 || zona == 70) {
+                localizacion.innerText = "Impacto en la mano derecha";
+            } else if (zona >= 71 && zona <= 74) {
+                localizacion.innerText = "Impacto en el muslo derecho";
+            } else if (zona >= 75 && zona <= 78) {
+                localizacion.innerText = "Impacto en la pantorrilla derecha";
+            } else if (zona == 79 || zona == 80) {
+                localizacion.innerText = "Impacto en el pie derecho";
+            } else if (zona >= 81 && zona <= 84) {
+                localizacion.innerText = "Impacto en el muslo izquierdo";
+            } else if (zona >= 85 && zona <= 88) {
+                localizacion.innerText = "Impacto en la pantorrilla izquierda";
+            } else if (zona == 89 || zona == 90) {
+                localizacion.innerText = "Impacto en el pie izquierdo";
+            } else {
+                localizacion.innerText = "Impacto en cabeza";
+            }
+        }
+    </script>
+</body>
+
+
+</html>
