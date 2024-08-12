@@ -47,7 +47,7 @@
         <option value="elfoOscuro">Elfo Oscuro (Drow)</option>
         <option value="mediano">Mediano</option>
         <option value="medianoPiesligeros">Mediano Piesligeros</option>
-        <option value="medianoGornido">Mediano Fornido</option>
+        <option value="medianoFornido">Mediano Fornido</option>
         <option value="draconido">Dracónido</option>
         <option value="gnomo">Gnomo</option>
         <option value="gnomoBosques">Gnomo de los Bosques</option>
@@ -285,46 +285,191 @@
                     listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "elfo":
-
+                    car.innerText = "+2 en destreza.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Elfo."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "No necesitan dormir, entran en 'trance' durante 4 horas y equivale a 8 de sueño.";
+                    ent.innerText = "Competentes con espadas cortas, espadas largas, arcos cortos y largos.";
+                    com.innerText = "Competentes en la habilidad de percepción.";
+                    ext.innerText = "Tienen ventaja en las tiradas de salvación para ser hechizados y no pueden ser dormidos con magia.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext);
                     break;
                 case "altoElfo":
-
+                    car.innerText = "+2 en destreza y +1 en inteligencia.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Elfo y otro idioma adicional."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "No necesitan dormir, entran en 'trance' durante 4 horas y equivale a 8 de sueño.";
+                    ent.innerText = "Competentes con espadas cortas, espadas largas, arcos cortos y largos.";
+                    com.innerText = "Competentes en la habilidad de percepción.";
+                    ext.innerText = "Tienen ventaja en las tiradas de salvación para ser hechizados y no pueden ser dormidos con magia.";
+                    sub.innerText = "Aprende un truco de tu elección escogido de entre los conjuros de magos. Usas la inteligencia para lanzarlo.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "elfoBosques":
-
+                    car.innerText = "+2 en destreza y +1 en sabiduría.";
+                    vel.innerText = "Velocidad: 35 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Elfo y otro idioma adicional."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "No necesitan dormir, entran en 'trance' durante 4 horas y equivale a 8 de sueño.";
+                    ent.innerText = "Competentes con espadas cortas, espadas largas, arcos cortos y largos.";
+                    com.innerText = "Competentes en la habilidad de percepción.";
+                    ext.innerText = "Tienen ventaja en las tiradas de salvación para ser hechizados y no pueden ser dormidos con magia.";
+                    sub.innerText = "Pueden intentar esconderse aunque el ambiente sea ligeramente oscuro siempre que te tape el follaje, lluvia fuerte, nieve, niebla u otro fenómeno natural.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "elfoOscuro":
-
+                    car.innerText = "+2 en destreza y +1 en carisma.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Elfo y otro idioma adicional."
+                    vis.innerText = "Visión en la oscuridad hasta 120 pies.";
+                    res.innerText = "No necesitan dormir, entran en 'trance' durante 4 horas y equivale a 8 de sueño.";
+                    ent.innerText = "Competentes con estoques, espadas cortasd y ballestas de mano.";
+                    com.innerText = "Competentes en la habilidad de percepción.";
+                    ext.innerText = "Tienen ventaja en las tiradas de salvación para ser hechizados y no pueden ser dormidos con magia.";
+                    sub.innerText = "Tienen desventaja en las tiradas de ataque y sabiduría (percepción) cuando tú o el objetivo estéis bajo la luz solar. Conocen el truco 'Luces danzantes', aprenden 'Fuego faérico' al nivel 3 recuperando el lanzamiento cada descanso largo, aprenden 'Oscuridad' al nivel 5 recuperando el lanzamiento cada descanso largo. Se usa carisma para lanzar los conjuros.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, com, ext, sub);
                     break;
                 case "mediano":
-
+                    car.innerText = "+2 en destreza.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Mediano."
+                    vis.innerText = "No tienen visión en la oscuridad.";
+                    res.innerText = "Pueden repetir la tirada si sacan un 1 pero deben aceptar ese nuevo resultado.";
+                    ext.innerText = "Puedes cruzar el espacio ocupado por una criatura que tenga un tamaño un nivel superior al suyo.";
+                    sub.innerText = "Tienen ventaja en las tiradas de salvación para ser asustados.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ext, sub);
                     break;
                 case "medianoPiesligeros":
-
+                    car.innerText = "+2 en destreza y +1 en carisma.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Mediano."
+                    vis.innerText = "No tienen visión en la oscuridad.";
+                    res.innerText = "Pueden repetir la tirada si sacan un 1 pero deben aceptar ese nuevo resultado.";
+                    ent.innerText = "Pueden intentar esconderse incluso tras una criatura cuyo tamaño sea un nivel superior.";
+                    ext.innerText = "Pueden cruzar el espacio ocupado por una criatura que tenga un tamaño un nivel superior al suyo.";
+                    sub.innerText = "Tienen ventaja en las tiradas de salvación para ser asustados.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, ext, sub);
                     break;
                 case "medianoFornido":
-
+                    car.innerText = "+2 en destreza y +1 en constitución.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Mediano."
+                    vis.innerText = "No tienen visión en la oscuridad.";
+                    res.innerText = "Pueden repetir la tirada si sacan un 1 pero deben aceptar ese nuevo resultado.";
+                    ent.innerText = "Tienen ventaja en las tiradas de salvación contra venenos y resistencia a ese daño.";
+                    ext.innerText = "Pueden cruzar el espacio ocupado por una criatura que tenga un tamaño un nivel superior al suyo.";
+                    sub.innerText = "Tienen ventaja en las tiradas de salvación para ser asustados.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, ext, sub);
                     break;
                 case "draconido":
+                    car.innerText = "+2 en fuerza y +1 en carisma.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Dracónico.";
+                    vis.innerHTML = "<span>Tipos de dragón:</span>" + "<br>" +
+                        "<ol>" +
+                        "<li>Azul - Relámpago - Línea de 5 por 30 pies - Salvación Destreza.</li>" +
+                        "<li>Blanco - Frio - Cono de 15 pies - Salvación Constitución.</li>" +
+                        "<li>Bronce - Relámpago - Línea de 5 por 30 pies - Salvación Destreza.</li>" +
+                        "<li>Cobre - Ácido - Línea de 5 por 30 pies - Salvación Destreza.</li>" +
+                        "<li>Negro - Ácido - Línea de 5 por 30 pies - Salvación Destreza.</li>" +
+                        "<li>Oro - Fuego - Cono de 15 pies - Salvación Destreza.</li>" +
+                        "<li>Oropel - Fuego - Línea de 5 por 30 pies - Salvación Destreza.</li>" +
+                        "<li>Plata - Frio - Cono de 15 pies - Salvación Constitución.</li>" +
+                        "<li>Rojo - Fuego - Cono de 15 pies - Salvación Destreza.</li>" +
+                        "<li>Verde - Veneno - Cono de 15 pies - Salvación Constitución.</li>" +
+                        "</ol>";
 
+                    res.innerText = "Tienen resistencia al daño y un ataque de aliento de la clase que hayan seleccionado de la tabla anterior.";
+                    sub.innerText = "Su ataque de aliento tiene una CD de 8 + modificador de constitución + modificador de competencia. El daño es 2d6, aumenta a 3d6 a nivel 6, 4d6 a nivel 11 y 5d6 a nivel 16.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, sub);
                     break;
                 case "gnomo":
-
+                    car.innerText = "+2 en inteligencia.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Gnomo."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Tienen ventajas en las tiradas de salvación de inteligencia, sabiduría y carisma contra magia.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res);
                     break;
                 case "gnomoBosques":
-
+                    car.innerText = "+2 en inteligencia +1 en destreza.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Gnomo."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Tienen ventajas en las tiradas de salvación de inteligencia, sabiduría y carisma contra magia.";
+                    ext.innerText = "Conocen el truco 'Ilusión menor' usando inteligencia para lanzarlo.";
+                    sub.innerText = "Pueden comunicar ideas sencillas a bestias de tamaño pequeño o inferior usando gestos y sonidos.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ext, sub);
                     break;
                 case "gnomoRocas":
-
+                    car.innerText = "+2 en inteligencia +1 en constitución.";
+                    vel.innerText = "Velocidad: 25 pies.";
+                    tam.innerText = "Tamaño: Pequeño.";
+                    idi.innerText = "Idiomas: Común y Gnomo."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Tienen ventajas en las tiradas de salvación de inteligencia, sabiduría y carisma contra magia.";
+                    ext.innerText = "Cuando hagan una prueba de inteligencia (Historia) sobre objetos mágicos, alquímicos o tecnológicos, se consideran competentes en historia y suman el doble de su modificicador.";
+                    sub.innerText = "Tienen competencia con las herramientas de manitas. Pueden invertir una hora y materiales valorados en 10PO para constuir un dispositivo de relojería de tamaño diminuto (Juguete de relojería, encendedor o caja de música), que dejará de funcionar tras 24 horas salvo que dediquen una hora a repararlo o desmantelarlo para recuperar los materiales.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ext, sub);
                     break;
                 case "semielfo":
-
+                    car.innerText = "+2 en carisma y +1 en otras dos características distintas a elección.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Elfo y otro idioma adicional."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    ext.innerText = "Tienen ventaja en las tiradas de salvación para ser hechizados y no pueden ser dormidos con magia.";
+                    sub.innerText = "Tienen competencia con dos habilidades a elegir.";
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, ext, sub);
                     break;
                 case "semiorco":
+                    car.innerText = "+2 en fuerza y +1 en constitución.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común y Orco."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Tienen competencia en intimidación.";
+                    ent.innerText = "Cuando sus puntos de golpe llegan a 0 pueden volver a tener 1 punto de golpe, una vez por descanso largo.";
+                    ext.innerText = "Al causar un crítico pueden tirar uno de sus dados de daño y añadir ese resultado al daño causado por el crítico.";
 
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent, ext);
                     break;
                 case "tiefling":
-
+                    car.innerText = "+2 en carisma y +1 en inteligencia.";
+                    vel.innerText = "Velocidad: 30 pies.";
+                    tam.innerText = "Tamaño: Mediano.";
+                    idi.innerText = "Idiomas: Común e Infernal."
+                    vis.innerText = "Visión en la oscuridad hasta 60 pies.";
+                    res.innerText = "Poseen resistencia al daño de fuego.";
+                    ent.innerText = "Conocen el truco 'Taumaturgia', a nivel 3 aprenden 'Reprensión infernal', a nivel 5 aprenden 'Oscuridad'. Todos se pueden volver a lanzar tras un descanso largo.";
+                    
+                    //
+                    listaAtr.push(car, vel, tam, idi, vis, res, ent);
                     break;
             }
             cargarAtributos(atr, listaAtr, span);
@@ -337,7 +482,7 @@
                 for (let j = 0; j < tiradas.length; j++) {
                     let opt = document.createElement("option");
                     opt.value = tiradas[j];
-                    opt.text = tiradas[j]; // Agrega el texto visible a la opción
+                    opt.text = tiradas[j];
                     listas[i].appendChild(opt);
                 }
             }
